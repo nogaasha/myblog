@@ -9,13 +9,14 @@ def init_db
   @db.results_as_hash = true
 end  
 
-before do 
-   init_db
+before do       # вызывается каждый раз когда перезагрузилась страница
+   init_db      # инициализация БД
 end
 
 configure do               #создаем таблицы в БД
 	init_db
-  @db.execute 'CREATE TABLE IF NOT EXISTS
+	 # создает таблицу если она не существует
+  @db.execute 'CREATE TABLE IF NOT EXISTS  
 		Posts
 		(
 			id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,6 +34,12 @@ get '/new' do
 end
 
 post '/new' do
-	content = params[:content]
+	content = params[:content]    # :content - это атрибут name = "content" for textarea
+
+	if content.length <= 0
+		@error= 'Введите текст'
+		return erb :new
+	end
+	
 	erb "Your typed: #{content}"			
 end
