@@ -23,8 +23,7 @@ configure do               #создаем таблицы в БД
 			created_date DATE,
 			content TEXT
 		)'
-end
-
+end	
 get '/' do
 	erb "Hello! <a href=\"https://github.com/bootstrap-ruby/sinatra-bootstrap\">Original</a> pattern has been modified for <a href=\"http://rubyschool.us/\">Ruby School</a>"			
 end
@@ -41,5 +40,7 @@ post '/new' do
 		return erb :new
 	end
 	
+	@db.execute 'insert into Posts (content, created_date) values (?, datetime())',[content]	
+
 	erb "Your typed: #{content}"			
 end
