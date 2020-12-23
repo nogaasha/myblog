@@ -8,6 +8,16 @@
   Added at <%= @row['created_date'] %> 
   <br />
 </p>
+<p>
+<% @comments.each do |item| %>
+  <div>
+  <%= item['content'] %>
+  <br />
+<span style="font-size: 75%; color : #999">Added at <%= item['created_date'] %> </span>
+  <hr />
+  </div>
+<% end %>
+</p>
 
 <p>
 <form action ="/details/<%= @row['id'] %>" method = "POST">
